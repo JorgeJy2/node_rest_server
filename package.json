@@ -1,6 +1,9 @@
 {
     "name": "07_rest_server",
     "version": "1.0.0",
+    "engines": {
+        "node": "8.11.3"
+    },
     "description": "Proyecto rest",
     "main": "index.js",
     "scripts": {
