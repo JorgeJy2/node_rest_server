@@ -34,7 +34,7 @@ app.get('/usuario', verificaToken, (req, res) => {
         })
 });
 
-app.post('/usuario', (req, res) => {
+app.post('/usuario', [verificaToken, verificaTokenAdmi], (req, res) => {
     let body = req.body;
 
     // let usuario = new Usuario({
@@ -73,7 +73,7 @@ app.post('/usuario', (req, res) => {
 
 });
 
-app.put('/usuario/:id', (req, res) => {
+app.put('/usuario/:id', [verificaToken, verificaTokenAdmi], (req, res) => {
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'role', 'estado']);
     // delete body.password;
