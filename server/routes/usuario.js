@@ -3,8 +3,8 @@ const app = express();
 const Usuario = require('../models/usuario');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
-
-app.get('/usuario', (req, res) => {
+const { verificaToken, verificaTokenAdmi } = require('../middlewares/autonticacion');
+app.get('/usuario', verificaToken, (req, res) => {
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -34,7 +34,7 @@ app.get('/usuario', (req, res) => {
         })
 });
 
-app.post('/usuario', (req, res) => {
+app.post('/usuario', [verificaToken, verificaTokenAdmi], (req, res) => {
     let body = req.body;
 
     // let usuario = new Usuario({
@@ -73,7 +73,7 @@ app.post('/usuario', (req, res) => {
 
 });
 
-app.put('/usuario/:id', (req, res) => {
+app.put('/usuario/:id', [verificaToken, verificaTokenAdmi], (req, res) => {
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'role', 'estado']);
     // delete body.password;
@@ -96,7 +96,7 @@ app.put('/usuario/:id', (req, res) => {
 });
 
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificaToken, verificaTokenAdmi], function(req, res) {
     // let id = req.params.id;
     // Usuario.findByIdAndRemove(id, (error, usuarioBorrarod) => {
     //     if (error) {
