@@ -73,7 +73,7 @@ app.post('/usuario', [verificaToken, verificaTokenAdmi], (req, res) => {
 
 });
 
-app.put('/usuario/:id', [verificaToken, verificaTokenAdmi], (req, res) => {
+app.put('/usuario/:id', verificaToken, (req, res) => {
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'role', 'estado']);
     // delete body.password;
