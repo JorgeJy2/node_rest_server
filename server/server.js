@@ -16,12 +16,21 @@ app.use(express.static(path.resolve(__dirname, "../public")));
 
 //configuración general de rutas
 app.use(require('./routes/index'));
-mongoose.connect(process.env.URLDB, (erro, resp) => {
-    if (erro) throw erro;
 
-    console.log("Base de datos online");
+mongoose.connect(process.env.urlDB, { useNewUrlParser: true, useCreateIndex: true }, (err, res) => {
+
+    if (err) throw err;
+    console.log('Base de Datos ONLINE');
 
 });
+
+
+// mongoose.connect(process.env.URLDB, (erro, resp) => {
+//     if (erro) throw erro;
+
+//     console.log("Base de datos online");
+
+// });
 
 app.listen(process.env.PORT, () => {
     console.log("Escuachando en el puerto ");
